@@ -12,6 +12,7 @@ import { jwtPlugin } from './plugins/jwt.plugin';
 import { authPlugin } from './plugins/auth.plugin';
 import { courseRoutes } from './modules/courses/course.routes';
 import { lessonRoutes } from './modules/lessons/lesson.routes';
+import { enrollmentRoutes } from './modules/enrollments/enrollment.routes';
 
 export async function buildApp() {
   const app = Fastify({
@@ -64,6 +65,7 @@ export async function buildApp() {
   await app.register(authRoutes, { prefix: '/api/auth' });
   await app.register(courseRoutes, { prefix: '/api/courses' });
   await app.register(lessonRoutes, { prefix: '/api' });
+  await app.register(enrollmentRoutes, { prefix: '/api/enrollments' });
 
   return app;
 }
