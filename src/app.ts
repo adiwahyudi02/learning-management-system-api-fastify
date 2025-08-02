@@ -7,6 +7,7 @@ import swaggerUI from '@fastify/swagger-ui';
 import { connectDB } from './config/db.config';
 import { healthcheckRoutes } from './modules/healthcheck/healthcheck.routes';
 import { errorHandlerPlugin } from './plugins/error.plugin';
+import { jwtPlugin } from './plugins/jwt.plugin';
 
 export async function buildApp() {
   const app = Fastify({
@@ -47,6 +48,9 @@ export async function buildApp() {
 
   // Register error handler
   await app.register(errorHandlerPlugin);
+
+  // Register jwt
+  await app.register(jwtPlugin);
 
   // Register routes
   await app.register(healthcheckRoutes);
