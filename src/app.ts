@@ -10,6 +10,8 @@ import { authRoutes } from './modules/auth/auth.routes';
 import { errorHandlerPlugin } from './plugins/error.plugin';
 import { jwtPlugin } from './plugins/jwt.plugin';
 import { authPlugin } from './plugins/auth.plugin';
+import { courseRoutes } from './modules/courses/course.routes';
+
 export async function buildApp() {
   const app = Fastify({
     logger: true,
@@ -58,7 +60,8 @@ export async function buildApp() {
 
   // Register routes
   await app.register(healthcheckRoutes);
-  await app.register(authRoutes);
+  await app.register(authRoutes, { prefix: '/api/auth' });
+  await app.register(courseRoutes, { prefix: '/api/courses' });
 
   return app;
 }
