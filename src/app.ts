@@ -6,9 +6,10 @@ import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import { connectDB } from './config/db.config';
 import { healthcheckRoutes } from './modules/healthcheck/healthcheck.routes';
+import { authRoutes } from './modules/auth/auth.routes';
 import { errorHandlerPlugin } from './plugins/error.plugin';
 import { jwtPlugin } from './plugins/jwt.plugin';
-
+import { authPlugin } from './plugins/auth.plugin';
 export async function buildApp() {
   const app = Fastify({
     logger: true,
@@ -52,8 +53,12 @@ export async function buildApp() {
   // Register jwt
   await app.register(jwtPlugin);
 
+  // Register auth
+  await app.register(authPlugin);
+
   // Register routes
   await app.register(healthcheckRoutes);
+  await app.register(authRoutes);
 
   return app;
 }
