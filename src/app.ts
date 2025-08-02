@@ -5,6 +5,7 @@ import compress from '@fastify/compress';
 import swagger from '@fastify/swagger';
 import swaggerUI from '@fastify/swagger-ui';
 import { connectDB } from './config/db.config';
+import { healthcheckRoutes } from './modules/healthcheck/healthcheck.routes';
 
 export async function buildApp() {
   const app = Fastify({
@@ -42,6 +43,9 @@ export async function buildApp() {
   await app.register(swaggerUI, {
     routePrefix: '/docs',
   });
+
+  // Register routes
+  await app.register(healthcheckRoutes);
 
   return app;
 }
