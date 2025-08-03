@@ -14,14 +14,10 @@ dotenv.config();
 
 async function main() {
   console.log('🔗 Connecting to database...');
-  if (process.env.NODE_ENV != 'development') {
-    throw new Error('❌ Cannot run seed in non-development environment!');
-  }
-
-  const shouldReset = process.argv.includes('--reset');
-
   // Connect to DB
   await connectDB();
+
+  const shouldReset = process.argv.includes('--reset');
 
   if (shouldReset) {
     console.log('⚠ Resetting existing data...');
@@ -80,6 +76,6 @@ main()
   .then(() => mongoose.disconnect())
   .catch((err) => {
     console.error('❌ Seed failed:', err);
-    mongoose.disconnect();
+    void mongoose.disconnect();
     process.exit(1);
   });
