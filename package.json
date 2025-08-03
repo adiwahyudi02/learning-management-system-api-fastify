@@ -10,8 +10,10 @@
     "seed": "ts-node ./seeds/seed.ts",
     "seed:reset": "ts-node ./seeds/seed.ts --reset",
     "test": "jest --runInBand --watchAll",
-    "lint": "eslint \"{src,tests}/**/*.ts\" --fix",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\""
+    "test:ci": "jest --runInBand --forceExit",
+    "lint": "eslint \"{src,tests, seeds}/**/*.ts\" --fix",
+    "format": "prettier --write \"src/**/*.ts\" \"seeds/**/*.ts\" \"tests/**/*.ts\"",
+    "prepare": "husky"
   },
   "jest": {
     "transform": {
@@ -48,12 +50,20 @@
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.3",
+    "husky": "^9.1.7",
     "jest": "^30.0.5",
+    "lint-staged": "^16.1.4",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
     "supertest": "^7.1.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.38.0"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "npm run lint",
+      "npm run format"
+    ]
   }
 }
