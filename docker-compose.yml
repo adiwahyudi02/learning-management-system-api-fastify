@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    build: .
+    image: ghcr.io/adiwahyudi02/learning-management-system-api-fastify:${IMAGE_TAG:-latest}
     ports:
       - '${PORT}:${PORT}'
     environment:
