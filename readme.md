@@ -28,62 +28,116 @@ This is project built on top [Fastify](https://github.com/fastify/fastify) frame
 - Fastify
 - TypeScript
 - MongoDB + Mongoose
-- Sinclair/typebox (schema validation)
+- Sinclair/typebox (Schema validation)
 - Fastify Swagger (OpenAPI docs)
-- Jest + Supertest (testing)
+- Jest + Supertest (Testing)
+- Docker
+- Github Actions
+- Eslint + Prettier + Husky
 
 ## Run the app
 
-**1. Install dependencies**
+You can run locally with Node.js, or use Docker Compose.
 
-```shell
-$ npm install
+### Option 1: Local development
+
+##### 1. Install Dependencies
+
+```bash
+  npm install
 ```
 
-**2. Setup environments**
+##### 2. Setup environments
 
 Create a .env file in the root project by copying from the provided example file:
 
-```shell
-$ cp .env.example .env
+```bash
+  cp .env.example .env
 ```
 
 Then adjust the values to match your local setup (e.g., database URI, JWT secret, etc.).
 
-**3. Seed the database (optional)**
+##### 3. Seed the database (optional)
 
-You can seed initial data (users, courses, lessons, etc.).
-⚠ Make sure **NODE_ENV** is set to **development** before running:
+```bash
+  # seed without resetting
+  npm run seed
 
-```shell
-$ npm run seed
+  # or seed with resetting
+  npm run seed:reset
 ```
 
-**4. Run the app**
+##### 4. Run the app
 
-```shell
-  # development
-  $ npm run dev
+```bash
+  # run in dev mode
+  npm run dev
 
-  # production
-  $ npm run build
-  $ npm run start
+  # or build & start production build
+  npm run build
+  npm run start
+```
+
+### Option 2: With Docker
+
+Docker images are published automatically to GitHub Container Registry (GHCR) through the CI/CD pipeline.
+
+##### 1. Setup the Enviroment for Docker
+
+Create a .env.docker file in the root project by copying from the provided example file:
+
+```bash
+  cp .env.docker.example .env.docker
+```
+
+Then adjust the values to match your local setup (e.g., database URI, JWT secret, etc.).
+
+> **Note:** By default, the `.env.docker` uses the `latest` tag. You can change it by checking the available tags in the GitHub Packages registry.
+
+##### 2. Docker scripts
+
+- To start the App
+
+```bash
+  npm run docker:up
+```
+
+- To stop and remove the containers:
+
+```bash
+npm run docker:down
+```
+
+- To see logs:
+
+```bash
+npm run docker:logs
+```
+
+##### 3. Seed the database (optional)
+
+```bash
+  # seed without resetting
+  npm run seed:prod
+
+  # or seed with resetting
+  npm run seed:prod:reset
 ```
 
 ## Run Test
 
-```shell
-  $ npm run test
+```bash
+  npm run test
 ```
 
 ## Run Linter
 
-```shell
-  $ npm run lint
+```bash
+  npm run lint
 ```
 
 ## Run Formater
 
-```shell
-  $ npm run format
+```bash
+  npm run format
 ```
